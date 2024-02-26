@@ -12,15 +12,12 @@ ConnectDb();
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: "*",
-    Credential: true
+    origin: "http://localhost:3000",
+    credentials: true
 }))
-app.use(helmet({
-    contentSecurityPolicy: false,
-    xDownloadOptions: false,
-}));
+app.use(helmet());
 app.use(bodyparser.json());
-app.use(morgan(`${process.env.MORGAN}`));
+app.use(morgan(`dev`));
 // routing apis
 app.use("/ecom", router);
 
