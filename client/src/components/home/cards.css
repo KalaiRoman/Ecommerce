@@ -1,0 +1,30 @@
+.buttons-like {
+}
+
+.main-button-section {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.top-section {
+  position: absolute;
+  bottom: 37px;
+  z-index: 98989898 !important;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  width: 95%;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: white;
+  display: flex;
+  cursor: pointer;
+}
+
+.like-name {
+  font-size: 20px;
+  transition: 2s;
+}
+
+.like-name:hover {
+  transform: translateY(-15px);
+}
