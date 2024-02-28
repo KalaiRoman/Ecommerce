@@ -11,14 +11,14 @@ function App() {
 
 
   useEffect(() => {
-    const userid = Cookies.get("unknowuser");
+    const userid = Cookies.get("userid");
 
     if (userid) {
 
     }
     else {
       const idCreate = uuidv4();
-      Cookies.set("unknowuser", idCreate);
+      Cookies.set("userid", idCreate);
       const data = {
         unknown: idCreate
       }

@@ -1,6 +1,6 @@
 import React from 'react'
 import './cards.css';
-function Cards({ name, image, button, shows, showindex, index, hoversectionLeave, addtocart, _id }) {
+function Cards({ name, image, button, shows, showindex, index, hoversectionLeave, addtocart, _id, userid, loginUser, LikeFunction, like, UpdateLikeUser }) {
     const likelists = [
         {
             id: 1,
@@ -44,6 +44,8 @@ function Cards({ name, image, button, shows, showindex, index, hoversectionLeave
 
         }
     ]
+
+    const findUserLike = like?.find((item, index) => item?.userdetails === userid)
     return (
         <div className='card col-lg-3 cursor-pointer p-2' onMouseLeave={hoversectionLeave}>
             <div>
@@ -61,7 +63,21 @@ function Cards({ name, image, button, shows, showindex, index, hoversectionLeave
                     <div className='top-section'>
                         {likelists?.map((item, index) => {
                             return (
-                                <div className='like-name' key={index}>
+                                <div className='like-name' key={index}
+                                    onClick={() => {
+                                        if (userid) {
+                                            if (findUserLike?.likeName) {
+                                                UpdateLikeUser(item?.name, _id, findUserLike?._id)
+                                            }
+                                            else {
+                                                LikeFunction(item?.name, _id)
+                                            }
+                                        }
+                                        else {
+                                            loginUser()
+                                        }
+                                    }}
+                                >
                                     {item?.image}
                                 </div>
                             )
@@ -70,7 +86,7 @@ function Cards({ name, image, button, shows, showindex, index, hoversectionLeave
                 </> : <></>}
                 <div className='main-button-section'>
                     <button className='buttons-like' onMouseOverCapture={() => button(index)}>
-                        Like
+                        {findUserLike?.likeName ? findUserLike?.likeName : "Like"} {like?.length}
                     </button>
                     <button>
                         Commend

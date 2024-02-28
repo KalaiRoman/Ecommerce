@@ -27,7 +27,7 @@ function Home() {
 
     const addtocart = (id) => {
 
-        const userid = Cookies.get("unknowuser");
+        const userid = Cookies.get("userid");
         const data = {
             productId: id,
             userdetails: userid
@@ -39,6 +39,45 @@ function Home() {
 
         })
     }
+    const userid = Cookies.get("userid");
+
+
+    const loginUser = () => {
+        window.location.assign("/login");
+    }
+
+
+    const LikeFunction = (likeName, id) => {
+
+        const data = {
+            likeName: likeName,
+            userid: userid,
+            productid: id
+        }
+
+        instanceBaseurl.put("/product/like", data)?.then((res) => {
+            toast.success(res?.data?.message);
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+    const UpdateLikeUser = (likeName, id, likeid) => {
+        const data = {
+            likeName: likeName,
+            productid: id,
+            likeId: likeid
+        }
+
+        console.log(data, 'data')
+
+        instanceBaseurl.put("/product/like/update", data)?.then((res) => {
+            toast.success(res?.data?.message);
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
     return (
         <div className='container mt-5 mb-5 mx-auto'>
             <div className='row d-flex gap-5 mx-auto w-100'>
@@ -47,6 +86,10 @@ function Home() {
                         key={index} button={hoversection} shows={show}
                         showindex={showindex} index={index} hoversectionLeave={hoversectionLeave}
                         addtocart={addtocart}
+                        userid={userid}
+                        loginUser={loginUser}
+                        LikeFunction={LikeFunction}
+                        UpdateLikeUser={UpdateLikeUser}
                     />
                 })}
             </div>

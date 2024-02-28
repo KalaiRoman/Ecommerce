@@ -8,7 +8,7 @@ import Signin from '../components/auth/Signin';
 function Routing() {
     return (
         <div>
-            <div>
+            <div className='w-100 border'>
                 <Header />
             </div>
             <Routes>
