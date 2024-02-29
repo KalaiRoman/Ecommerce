@@ -23,7 +23,7 @@ const LikeUser = new mongoose.Schema({
     likeName: {
         type: String,
         required: true,
-        enum: ["👍like", "❤️heart", "🥰love", "😆smile", "😃happy", "🥲sad", "😡angry"]
+        enum: ["👍like", "❤️heart", "🥰love", "😆smile", "😃happy", "🥲sad", "😡angry"],
     },
     userdetails: {
         type: mongoose.Types.ObjectId,
@@ -72,7 +72,11 @@ const product_shema = new mongoose.Schema({
         required: true
     },
     reviews: [reviewSchema],
-    like: [LikeUser]
+    like: [LikeUser],
+    buystatus: {
+        type: Boolean,
+        default: false
+    }
 },
     {
         timestamps: true

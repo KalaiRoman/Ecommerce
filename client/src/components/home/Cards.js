@@ -1,6 +1,6 @@
 import React from 'react'
 import './cards.css';
-function Cards({ name, image, button, shows, showindex, index, hoversectionLeave, addtocart, _id, userid, loginUser, LikeFunction, like, UpdateLikeUser }) {
+function Cards({ name, image, button, shows, showindex, index, hoversectionLeave, addtocart, _id, userid, loginUser, LikeFunction, like, UpdateLikeUser, CommentUsers, handleShow, reviews }) {
     const likelists = [
         {
             id: 1,
@@ -85,11 +85,11 @@ function Cards({ name, image, button, shows, showindex, index, hoversectionLeave
                     </div>
                 </> : <></>}
                 <div className='main-button-section'>
-                    <button className='buttons-like' onMouseOverCapture={() => button(index)}>
-                        {findUserLike?.likeName ? findUserLike?.likeName : "Like"} {like?.length}
+                    <button className='buttons-like ' onMouseOverCapture={() => button(index)}>
+                        {findUserLike?.likeName ? findUserLike?.likeName.slice(0, 2) : <i class="fa-solid fa-thumbs-up"></i>} <span>{like?.length}</span>
                     </button>
-                    <button>
-                        Commend
+                    <button onClick={() => handleShow(_id)}>
+                        Commend {reviews?.length}
                     </button>
                     <button onClick={() => addtocart(_id)}>
                         Add to cart
