@@ -20,12 +20,14 @@ function Signin() {
         })
     }
     return (
-        <div className='container'>
+        <div className='container w-[100%] h-[100vh] flex align-items-center justify-content-center flex-col'>
             <div className='w-50 mx-auto mb-4 d-flex flex-column gap-4 mt-4'>
                 <div>
-                    <input type="text" placeholder='email only' onChange={(e) => setEmail(e?.target?.value)} name="email" value={email} />
+                    <input type="text" placeholder='Enter Only Email'
+                        className='w-[100%] border p-3 rounded'
+                        onChange={(e) => setEmail(e?.target?.value)} name="email" value={email} />
                 </div>
-                <button onClick={submit}>submit</button>
+                <button onClick={submit} className='w-[20%] bg-blue-400 text-white p-3 rounded mx-auto'>submit</button>
             </div>
 
             <div className='text-center cursor' onClick={() => window.location.assign("/signup")}>Don't have an Account <span className='text-danger mt-3 text-center'>Signup?</span></div>

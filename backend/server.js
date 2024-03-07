@@ -13,7 +13,9 @@ const app = express();
 app.use(express.json());
 app.use(cors({
     origin: "http://localhost:3000",
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type"]
 }))
 app.use(helmet());
 app.use(bodyparser.json());

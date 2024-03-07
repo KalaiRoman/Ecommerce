@@ -1,6 +1,8 @@
 import React from 'react'
 import './cards.css';
-function Cards({ name, image, button, shows, showindex, index, hoversectionLeave, addtocart, _id, userid, loginUser, LikeFunction, like, UpdateLikeUser, CommentUsers, handleShow, reviews }) {
+import instanceBaseurl from './../../config/Baseurl';
+import { toast } from 'react-hot-toast';
+function Cards({ name, image, button, shows, showindex, index, productFavortStatus, hoversectionLeave, addtocart, _id, userid, loginUser, LikeFunction, like, UpdateLikeUser, CommentUsers, handleShow, reviews }) {
     const likelists = [
         {
             id: 1,
@@ -45,10 +47,30 @@ function Cards({ name, image, button, shows, showindex, index, hoversectionLeave
         }
     ]
 
-    const findUserLike = like?.find((item, index) => item?.userdetails === userid)
+    const findUserLike = like?.find((item, index) => item?.userdetails === userid);
+
+
+    const favortUser = async () => {
+
+        const data = {
+            productId: _id,
+            userId: userid
+        }
+        const response = await instanceBaseurl.put("/product/fav", data).then((res) => {
+            toast.success(res?.data?.message)
+        })
+    }
     return (
-        <div className='card col-lg-3 cursor-pointer p-2' onMouseLeave={hoversectionLeave}>
-            <div>
+        <div className='cursor-pointer overflow-hidden py-4 position-relative  px-4  border  position-relative rounded text-center align-center justify-center' onMouseLeave={hoversectionLeave}>
+
+            <div className='position-absolute right-[-170px] top-5 text-2xl ' onClick={favortUser}>
+                {productFavortStatus ? <div className='bg-red-600'>
+                    <i class="fa-solid fa-heart" ></i>
+                </div> : <>
+                    <i class="fa-solid fa-heart"></i>
+                </>}
+            </div>
+            <div className='flex align-center justify-center hover:scale-105'>
                 <img src={image} alt="no image" style={{
                     width: "200px",
                     height: "200px"
@@ -84,14 +106,16 @@ function Cards({ name, image, button, shows, showindex, index, hoversectionLeave
                         })}
                     </div>
                 </> : <></>}
-                <div className='main-button-section'>
-                    <button className='buttons-like ' onMouseOverCapture={() => button(index)}>
+                <div className='main-button-section bg-blue-100 w-[100%] h-[50px]'>
+                    <button className='buttons-like w-[60%] pl-4' onMouseOverCapture={() => button(index)}>
                         {findUserLike?.likeName ? findUserLike?.likeName.slice(0, 2) : <i class="fa-solid fa-thumbs-up"></i>} <span>{like?.length}</span>
                     </button>
-                    <button onClick={() => handleShow(_id)}>
+                    {/* <button onClick={() => handleShow(_id)}>
                         Commend {reviews?.length}
-                    </button>
-                    <button onClick={() => addtocart(_id)}>
+                    </button> */}
+                    <button onClick={() => addtocart(_id)}
+                        className='bg-orange-600 text-white rounded  fw-bold cursor-pointer w-[30%] py-1 '
+                    >
                         Add to cart
                     </button>
                 </div>

@@ -1,6 +1,5 @@
+import product_favort_shema from "../../models/product_favort_shema.js";
 import product_shrma from "../../models/product_shrma.js"
-
-
 
 export const Createproduct = async (req, res) => {
     try {
@@ -10,7 +9,6 @@ export const Createproduct = async (req, res) => {
 
     }
 }
-
 export const Getproduct = async (req, res) => {
     try {
         const resopnse = await product_shrma.find({}).lean();
@@ -19,17 +17,13 @@ export const Getproduct = async (req, res) => {
         console.log(error)
     }
 }
-
 export const Likeproduct = async (req, res) => {
     const { productid, userid, likeName } = req.body;
     try {
-
         const data = {
             likeName: likeName,
             userdetails: userid
         }
-
-
         const likeuserIds = [];
 
         const existUsers = await product_shrma.findById({ _id: productid });
@@ -38,7 +32,6 @@ export const Likeproduct = async (req, res) => {
             likeuserIds?.push(item?.userdetails?.valueOf());
         })
 
-        console.log(likeuserIds, 'likeuserIds')
 
         if (likeuserIds.includes(userid)) {
             const resopnse = await product_shrma.findByIdAndUpdate({ _id: productid }, { $pull: { like: data } }, { new: true });
@@ -102,5 +95,64 @@ export const CommentUpdateproduct = async (req, res) => {
         res.status(200)?.json({ message: "You Comment Updated This Product" })
     } catch (error) {
         console.log(error)
+    }
+}
+
+
+
+export const TopProducts = async (req, res) => {
+    const { productId } = req.body;
+    try {
+        const response = await product_shrma.findById({ _id: productId });
+        const ratingCount = response?.reviews?.length;
+        const ratingSection = response?.reviews?.map((item) => item?.rating).reduce((acc, curr) => Number(acc) + Number(curr), 0);
+        const actualRating = Math.round(ratingSection / ratingCount);
+        res.status(200).json({ message: actualRating })
+    } catch (error) {
+
+    }
+}
+
+
+export const favortProduct = async (req, res) => {
+    const { productId, userId } = req.body;
+    try {
+        const checkexisting = await product_shrma.findById({ _id: productId })
+        if (checkexisting?.productFavortStatus) {
+            const data = {
+                user: userId
+            }
+            // const response1 = await product_favort_shema.deleteOne({ productId: productId });
+            const response = await product_shrma.findByIdAndUpdate({ _id: productId }, {
+                $pull: { productFavorts: data },
+                productFavortStatus: false,
+            },
+                {
+                    new: true
+                });
+        }
+        else {
+            const data = {
+                user: userId
+            }
+            // const response1 = await product_favort_shema({
+            //     productId, user: userId
+            // })
+            const response = await product_shrma.findByIdAndUpdate({ _id: productId }, {
+                $push: { productFavorts: data },
+                productFavortStatus: true,
+            },
+                {
+                    new: true
+                });
+        }
+
+
+
+        res.status(200).json({ message: `${checkexisting?.productFavortStatus ? "Product Like Updated" : "Product Liked"}` })
+
+
+    } catch (error) {
+
     }
 }

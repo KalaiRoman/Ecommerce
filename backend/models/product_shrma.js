@@ -34,6 +34,19 @@ const LikeUser = new mongoose.Schema({
         timestamps: true
     })
 
+
+
+const FavortsProductShema = new mongoose.Schema({
+    user: {
+        type: mongoose.Types.ObjectId,
+        required: true,
+        ref: "auth"
+    }
+},
+    {
+        timestamps: true
+    })
+
 const product_shema = new mongoose.Schema({
     name: {
         type: String,
@@ -76,7 +89,12 @@ const product_shema = new mongoose.Schema({
     buystatus: {
         type: Boolean,
         default: false
-    }
+    },
+    productFavortStatus: {
+        type: Boolean,
+        default: false
+    },
+    productFavorts: [FavortsProductShema]
 },
     {
         timestamps: true
