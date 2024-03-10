@@ -50,6 +50,16 @@ function Header() {
     const LoginUser = () => {
         window.location.assign("/login");
     }
+
+
+    useEffect(() => {
+        const dicount = 20;
+        const originalprice = 1000;
+        const filterPrice = dicount / 100;
+        const total = Math.round(originalprice - (originalprice * filterPrice))
+        console.log(total, 'total')
+
+    }, [])
     return (
 
         <div className='bg-green-600 h-auto py-4 xs:bg-red-400 sm:bg-blue-400 md:bg-orange-400 text-white fw-bold px-4'>
@@ -61,7 +71,7 @@ function Header() {
                 <div>
                     welocme
                 </div>
-                <div className='flex gap-5 align-items-center justify-center w-[50%]'>
+                <div className='flex gap-5 align-items-center justify-between w-[50%]'>
                     <div className='position-relative w-[20px]' onClick={() => window.location.assign("/cart")}>
                         <div className='cursor-pointer'>
                             <div className='mr-[100%]'>
@@ -72,6 +82,9 @@ function Header() {
                             </div>
                         </div>
                     </div>
+                    {/* <div>
+                        <i class="fa-solid fa-heart"></i>
+                    </div> */}
                     <div className='w-[100%] gap-5'>
                         {userid ? <>
                             <button onClick={logoutuser} className="w-[30%] border p-1 rounded" >  <span className='fw-bold'>Logout </span></button>
@@ -79,32 +92,11 @@ function Header() {
                             <button onClick={LoginUser} className="w-[30%] border p-1 rounded " >  <span className='fw-bold'>Login </span></button>
                         </>}
                     </div>
+
                 </div>
             </div>
 
-            {/* <>
-                <div className="container-fluid gap-2 d-flex p-2">
-                    <div onClick={() => window.location.assign("/")} className='cursor'>Home</div>
-                    <div>
-                        {data1?.email}
-                    </div>
-                    <div className='w-25'>
-                        <button onClick={() => history("/image")} className="btn btn-outline-success " >  <span className='fw-bold fs-3'>Image upload</span><span className='text-danger fw-bold fs-2 ms-2'></span></button>
-                    </div>
-                    <div className='w-25'>
-                        <button onClick={() => history("/cart")} className="btn btn-outline-success " >  <span className='fw-bold fs-3'>Cart</span><span className='text-danger fw-bold fs-2 ms-2'>{data?.length}</span></button>
-                    </div>
-                    <div className='w-25'>
-                        {userid ? <>
-                            <button onClick={logoutuser} className="btn btn-outline-success " >  <span className='fw-bold fs-3'>Logout </span><span className='text-danger fw-bold fs-2 ms-2'></span></button>
 
-                        </> : <>
-                            <button onClick={LoginUser} className="btn btn-outline-success " >  <span className='fw-bold fs-3'>Login </span><span className='text-danger fw-bold fs-2 ms-2'></span></button>
-
-                        </>}
-                    </div>
-                </div>
-            </> */}
 
 
         </div>

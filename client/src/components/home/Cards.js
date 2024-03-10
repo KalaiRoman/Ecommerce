@@ -64,10 +64,10 @@ function Cards({ name, image, button, shows, showindex, index, productFavortStat
         <div className='cursor-pointer overflow-hidden py-4 position-relative  px-4  border  position-relative rounded text-center align-center justify-center' onMouseLeave={hoversectionLeave}>
 
             <div className='position-absolute right-[-170px] top-5 text-2xl ' onClick={favortUser}>
-                {productFavortStatus ? <div className='bg-red-600'>
-                    <i class="fa-solid fa-heart" ></i>
+                {productFavortStatus ? <div>
+                    <i class="fa-solid fa-heart like-heart" ></i>
                 </div> : <>
-                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-regular fa-heart unlike-heart"></i>
                 </>}
             </div>
             <div className='flex align-center justify-center hover:scale-105'>
@@ -106,18 +106,30 @@ function Cards({ name, image, button, shows, showindex, index, productFavortStat
                         })}
                     </div>
                 </> : <></>}
-                <div className='main-button-section bg-blue-100 w-[100%] h-[50px]'>
-                    <button className='buttons-like w-[60%] pl-4' onMouseOverCapture={() => button(index)}>
-                        {findUserLike?.likeName ? findUserLike?.likeName.slice(0, 2) : <i class="fa-solid fa-thumbs-up"></i>} <span>{like?.length}</span>
-                    </button>
+                <div className='main-button-section bg-blue-100 w-[100%] h-[50px] align-items-center'>
+
+                    <div className='w-[70%] flex'>
+                        <div className='w-[20%]'>
+                            <button className='buttons-like w-[20%] pl-4' onMouseOverCapture={() => button(index)}>
+                                {findUserLike?.likeName ? findUserLike?.likeName.slice(0, 2) : <i class="fa-solid fa-thumbs-up"></i>} <span className='pl-[22px]'>{like?.length}</span>
+                            </button>
+                        </div>
+                        <div className='w-[20%]'>
+                            <button>
+                                <i class="fa-solid fa-thumbs-down"></i>
+                            </button>
+                        </div>
+                    </div>
                     {/* <button onClick={() => handleShow(_id)}>
                         Commend {reviews?.length}
                     </button> */}
-                    <button onClick={() => addtocart(_id)}
-                        className='bg-orange-600 text-white rounded  fw-bold cursor-pointer w-[30%] py-1 '
-                    >
-                        Add to cart
-                    </button>
+                    <div className='w-[30%]'>
+                        <button onClick={() => addtocart(_id)}
+                            className='bg-orange-600 text-white rounded  fw-bold cursor-pointer w-[40px] py-1 '
+                        >
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
